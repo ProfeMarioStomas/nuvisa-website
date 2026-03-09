@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuvisa Food — Almuerzos frescos, hechos con pasión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #7CB342;
+    --green-light: #9CCC65;
+    --green-dark: #558B2F;
+    --green-pale: #f0f7e6;
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --gray-light: #f5f5f5;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--black);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .nav-logo .brand-nuvisa {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+
+  .nav-logo .brand-food {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--black);
+    line-height: 1;
+    margin-top: -2px;
+  }
+
+  .nav-logo .brand-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--black);
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--green);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--green) !important;
+    color: var(--white) !important;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--green-dark) !important; transform: translateY(-1px); }
+  .nav-cta::after { display: none !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--black);
+    transition: all 0.3s;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--white) 0%, var(--green-pale) 50%, var(--white) 100%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(124,179,66,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(124,179,66,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-decoration {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,179,66,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-text { animation: slideUp 0.8s ease-out; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    border: 1px solid rgba(124,179,66,0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(124,179,66,0.1);
+  }
+
+  .hero-badge::before { content: '🌿'; }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 span {
+    color: var(--green);
+    position: relative;
+  }
+
+  .hero h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0; right: 0;
+    height: 8px;
+    background: rgba(124,179,66,0.2);
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--green);
+    color: var(--white);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(124,179,66,0.3);
+  }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(124,179,66,0.4); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--black);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid rgba(0,0,0,0.12);
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-visual {
+    position: relative;
+    animation: slideUp 0.8s ease-out 0.2s both;
+  }
+
+  .hero-image-frame {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 24px;
+    background:
+      linear-gradient(160deg, rgba(124,179,66,0.15) 0%, rgba(124,179,66,0.05) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(124,179,66,0.15);
+  }
+
+  .hero-image-frame .plate-icon {
+    font-size: 8rem;
+    opacity: 0.9;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .hero-stat {
+    position: absolute;
+    background: var(--white);
+    padding: 0.8rem 1.2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    animation: slideUp 0.8s ease-out 0.5s both;
+  }
+
+  .hero-stat.stat-1 { bottom: -16px; left: 20px; }
+  .hero-stat.stat-2 { top: 16px; right: -16px; }
+
+  .hero-stat .stat-number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .hero-stat .stat-label {
+    font-size: 0.75rem;
+    color: var(--gray);
+    font-weight: 500;
+  }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 6rem 2rem; }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    color: var(--black);
+    margin-bottom: 1rem;
+  }
+
+  .section-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--gray);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* ── SERVICIOS ── */
+  .servicios { background: var(--gray-light); }
+
+  .servicios-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .servicio-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .servicio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .servicio-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+  .servicio-card:hover::before { transform: scaleX(1); }
+
+  .servicio-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--green-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .servicio-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: var(--black);
+  }
+
+  .servicio-card p {
+    color: var(--gray);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .servicio-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--green);
+    background: var(--green-pale);
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── NOSOTROS ── */
+  .nosotros { background: var(--white); }
+
+  .nosotros-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .nosotros-visual {
+    position: relative;
+  }
+
+  .nosotros-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--green-pale) 0%, rgba(124,179,66,0.1) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nosotros-image .swallow-svg {
+    width: 120px;
+    height: 120px;
+    opacity: 0.8;
+  }
+
+  .nosotros-image .brand-text {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  .nosotros-image .brand-text span {
+    color: var(--green);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    display: block;
+    text-transform: uppercase;
+  }
+
+  .nosotros-accent {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--green);
+    opacity: 0.1;
+  }
+
+  .nosotros-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+
+  .nosotros-text h2 span { color: var(--green); }
+
+  .nosotros-text > p {
+    color: var(--gray);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+
+  .valores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  .valor-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--green-pale);
+    transition: all 0.3s;
+  }
+  .valor-item:hover { transform: translateX(4px); }
+
+  .valor-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .valor-item h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 2px;
+  }
+  .valor-item p {
+    font-size: 0.8rem;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+
+  /* ── MENÚ / CATÁLOGO ── */
+  .menu {
+    background: var(--gray-light);
+    position: relative;
+  }
+
+  .menu-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .menu-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.08); }
+
+  .menu-card-image {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--green-pale), rgba(124,179,66,0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+  }
+
+  .menu-card-image .menu-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--green);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .menu-card-body { padding: 1.5rem; }
+
+  .menu-card-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .menu-card-body p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .menu-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .menu-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .menu-order {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--green);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap 0.3s;
+  }
+  .menu-order:hover { gap: 0.6rem; }
+
+  /* ── POR QUÉ ELEGIRNOS ── */
+  .porque { background: var(--white); }
+
+  .porque-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .porque-item {
+    padding: 2rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+
+  .porque-item:hover { background: var(--green-pale); }
+
+  .porque-number {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .porque-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .porque-item p {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--black);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 50%, rgba(124,179,66,0.15), transparent 60%),
+      radial-gradient(circle at 70% 50%, rgba(124,179,66,0.1), transparent 50%);
+    pointer-events: none;
+  }
+
+  .cta-banner h2 {
+    font-family: var(--font-display);
+    color: var(--white);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cta-banner h2 span { color: var(--green-light); }
+
+  .cta-banner p {
+    color: rgba(255,255,255,0.7);
+    font-size: 1.1rem;
+    max-width: 550px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+
+  .cta-banner .btn-primary {
+    position: relative;
+    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+  }
+
+  /* ── CONTACTO ── */
+  .contacto { background: var(--gray-light); }
+
+  .contacto-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contacto-info { padding: 2rem 0; }
+
+  .contacto-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .contacto-info > p {
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .contacto-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .contacto-item-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--green-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contacto-item-text strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--black);
+  }
+
+  .contacto-item-text span {
+    font-size: 0.9rem;
+    color: var(--gray);
+  }
+
+  .contacto-form {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--black);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    background: var(--gray-light);
+    transition: border-color 0.3s;
+    outline: none;
+    color: var(--black);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--green);
+    background: var(--white);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .form-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem 1.5rem;
+  }
+
+  .footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-brand .brand-nuvisa {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--green);
+    text-transform: uppercase;
+  }
+
+  .footer-brand .brand-food {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--white);
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--green-light); }
+
+  .footer-social { display: flex; gap: 0.8rem; }
+  .footer-social a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .footer-social a:hover { background: var(--green); color: var(--white); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease-out;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: 1.5rem 2rem;
+      gap: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .nav-links.active { display: flex; }
+    .hamburger { display: flex; }
+
+    .hero-content { grid-template-columns: 1fr; padding-top: 7rem; gap: 2rem; }
+    .hero-visual { order: -1; }
+    .servicios-grid { grid-template-columns: 1fr; }
+    .nosotros-content { grid-template-columns: 1fr; }
+    .porque-grid { grid-template-columns: 1fr 1fr; }
+    .contacto-wrapper { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-content { flex-direction: column; text-align: center; }
+    .valores-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .porque-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVEGACIÓN ═══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="brand-stack">
+      <span class="brand-nuvisa">NUVISA</span>
+      <span class="brand-food">food</span>
+    </div>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#menu">Menú</a>
+    <a href="#contacto" class="nav-cta">Cotizar</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="inicio">
+  <div class="hero-pattern"></div>
+  <div class="hero-decoration"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">Frescura que se siente en cada bocado</div>
+      <h1>Almuerzos con <span>sabor casero</span>, calidad profesional</h1>
+      <p>En Nuvisa Food preparamos almuerzos frescos y nutritivos para empresas, eventos y personas que valoran comer bien todos los días.</p>
+      <div class="hero-buttons">
+        <a href="#contacto" class="btn-primary">Solicitar cotización →</a>
+        <a href="#menu" class="btn-secondary">Ver nuestro menú</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image-frame">
+        <div class="plate-icon">🍽️</div>
+        <div class="hero-stat stat-1">
+          <div>
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Almuerzos al día</div>
+          </div>
+        </div>
+        <div class="hero-stat stat-2">
+          <div>
+            <div class="stat-number">⭐ 4.9</div>
+            <div class="stat-label">Satisfacción</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICIOS ═══ -->
+<section class="servicios" id="servicios">
+  <div class="section-header reveal">
+    <span class="section-tag">Nuestros servicios</span>
+    <h2>Soluciones de alimentación para cada necesidad</h2>
+    <p>Desde almuerzos corporativos diarios hasta catering para tus eventos especiales, nos adaptamos a ti.</p>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🏢</div>
+      <h3>Almuerzos Corporativos</h3>
+      <p>Planes de alimentación diaria para tu equipo de trabajo. Menús variados, balanceados y puntuales. Ideal para oficinas, fábricas y sedes empresariales.</p>
+      <span class="servicio-tag">B2B</span>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🎉</div>
+      <h3>Catering & Eventos</h3>
+      <p>Servicio completo para reuniones, celebraciones y eventos corporativos o sociales. Diseñamos menús a la medida de tu ocasión.</p>
+      <span class="servicio-tag">B2B · B2C</span>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🛵</div>
+      <h3>Delivery Personal</h3>
+      <p>¿Quieres comer rico sin cocinar? Recibe tu almuerzo casero en la puerta de tu hogar u oficina. Fresco, caliente y listo para disfrutar.</p>
+      <span class="servicio-tag">B2C</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOSOTROS ═══ -->
+<section class="nosotros" id="nosotros">
+  <div class="nosotros-content">
+    <div class="nosotros-visual reveal">
+      <div class="nosotros-image">
+        <svg class="swallow-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="50" fill="#7CB342" opacity="0.15"/>
+          <path d="M40 65 C40 50, 55 40, 70 45 C75 47, 78 52, 76 58 C74 64, 68 66, 63 64 L55 80 C53 85, 48 88, 43 90 L30 95 C28 96, 26 94, 28 92 L38 78 C36 74, 38 68, 40 65Z" fill="#1a1a1a"/>
+          <path d="M72 48 C80 42, 95 38, 105 42 C108 43, 106 46, 103 45 C95 43, 82 48, 75 52Z" fill="#1a1a1a"/>
+          <circle cx="66" cy="50" r="2" fill="white"/>
+        </svg>
+        <div class="brand-text">
+          <span>NUVISA</span>
+          food
+        </div>
+      </div>
+      <div class="nosotros-accent"></div>
+    </div>
+    <div class="nosotros-text reveal">
+      <span class="section-tag">Sobre nosotros</span>
+      <h2>Cocina con <span>alma</span>, servicio con corazón</h2>
+      <p>Nuvisa Food nace de la pasión por la buena cocina y la convicción de que comer bien no debería ser un lujo. Como la golondrina de nuestro logo, llegamos puntuales cada día llevando alimento fresco y preparado con dedicación a empresas y hogares.</p>
+      <div class="valores-grid">
+        <div class="valor-item">
+          <div class="valor-icon">🥬</div>
+          <div>
+            <h4>Ingredientes frescos</h4>
+            <p>Seleccionamos lo mejor cada mañana</p>
+          </div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">⏰</div>
+          <div>
+            <h4>Puntualidad</h4>
+            <p>Tu almuerzo siempre a tiempo</p>
+          </div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">👨‍🍳</div>
+          <div>
+            <h4>Sabor casero</h4>
+            <p>Cocinamos como en casa, pero mejor</p>
+          </div>
+        </div>
+        <div class="valor-item">
+          <div class="valor-icon">♻️</div>
+          <div>
+            <h4>Sustentabilidad</h4>
+            <p>Envases eco-amigables</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MENÚ ═══ -->
+<section class="menu" id="menu">
+  <div class="section-header reveal">
+    <span class="section-tag">Nuestro menú</span>
+    <h2>Sabores que cambian cada semana</h2>
+    <p>Rotamos nuestro menú semanalmente para que siempre haya algo nuevo. Estos son algunos de nuestros platos favoritos.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div class="menu-card-image">
+        🍗
+        <span class="menu-tag">Popular</span>
+      </div>
+      <div class="menu-card-body">
+        <h3>Pollo al Horno con Arroz</h3>
+        <p>Pollo marinado al horno dorado, acompañado de arroz con vegetales y ensalada fresca del día.</p>
+        <div class="menu-card-footer">
+          <span class="menu-price">Consultar</span>
+          <a href="#contacto" class="menu-order">Pedir → </a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-card-image">
+        🥩
+        <span class="menu-tag">Premium</span>
+      </div>
+      <div class="menu-card-body">
+        <h3>Lomo Saltado</h3>
+        <p>Trozos de lomo fino salteados con cebolla, tomate y ají, servidos con papas fritas y arroz blanco.</p>
+        <div class="menu-card-footer">
+          <span class="menu-price">Consultar</span>
+          <a href="#contacto" class="menu-order">Pedir →</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-card-image">
+        🥗
+        <span class="menu-tag">Saludable</span>
+      </div>
+      <div class="menu-card-body">
+        <h3>Bowl Mediterráneo</h3>
+        <p>Base de quinoa con vegetales asados, garbanzos, hummus casero, aceitunas y aderezo de limón.</p>
+        <div class="menu-card-footer">
+          <span class="menu-price">Consultar</span>
+          <a href="#contacto" class="menu-order">Pedir →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POR QUÉ ELEGIRNOS ═══ -->
+<section class="porque">
+  <div class="section-header reveal">
+    <span class="section-tag">¿Por qué Nuvisa?</span>
+    <h2>Números que hablan por nosotros</h2>
+  </div>
+  <div class="porque-grid">
+    <div class="porque-item reveal">
+      <div class="porque-number">500+</div>
+      <h4>Almuerzos diarios</h4>
+      <p>Producidos cada día</p>
+    </div>
+    <div class="porque-item reveal">
+      <div class="porque-number">50+</div>
+      <h4>Empresas</h4>
+      <p>Confían en nosotros</p>
+    </div>
+    <div class="porque-item reveal">
+      <div class="porque-number">98%</div>
+      <h4>Satisfacción</h4>
+      <p>Clientes contentos</p>
+    </div>
+    <div class="porque-item reveal">
+      <div class="porque-number">365</div>
+      <h4>Días al año</h4>
+      <p>Siempre disponibles</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BANNER ═══ -->
+<section class="cta-banner">
+  <h2>¿Listo para comer <span>diferente</span>?</h2>
+  <p>Cotiza hoy tu plan de almuerzos corporativos o haz tu primer pedido personal. Sin compromiso.</p>
+  <a href="#contacto" class="btn-primary">Escríbenos ahora →</a>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section class="contacto" id="contacto">
+  <div class="section-header reveal">
+    <span class="section-tag">Contacto</span>
+    <h2>Hablemos de tu próximo almuerzo</h2>
+    <p>Cuéntanos qué necesitas y te preparamos una propuesta a la medida.</p>
+  </div>
+  <div class="contacto-wrapper">
+    <div class="contacto-info reveal">
+      <h3>Información de contacto</h3>
+      <p>Estamos listos para atenderte. Escríbenos o llámanos y responderemos lo antes posible.</p>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">📍</div>
+        <div class="contacto-item-text">
+          <strong>Ubicación</strong>
+          <span>Iquique, Chile</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">📞</div>
+        <div class="contacto-item-text">
+          <strong>Teléfono</strong>
+          <span>+56 9 5094 5142</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">✉️</div>
+        <div class="contacto-item-text">
+          <strong>Email</strong>
+          <span>contacto@nuvisafood.cl</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">🕐</div>
+        <div class="contacto-item-text">
+          <strong>Horario</strong>
+          <span>Lunes a Sábado · 7:00 - 17:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="contacto-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" placeholder="+56 9 ...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="tu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Tipo de servicio</label>
+        <select>
+          <option value="">Selecciona una opción</option>
+          <option>Almuerzos corporativos</option>
+          <option>Catering para eventos</option>
+          <option>Delivery personal</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="Cuéntanos qué necesitas: cantidad de personas, frecuencia, preferencias alimentarias..."></textarea>
+      </div>
+      <button class="form-submit">Enviar solicitud →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="brand-nuvisa">NUVISA</span><br>
+      <span class="brand-food">food</span>
+    </div>
+    <div class="footer-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#menu">Menú</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram">📷</a>
+      <a href="#" aria-label="Facebook">📘</a>
+      <a href="#" aria-label="WhatsApp">💬</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Nuvisa Food. Todos los derechos reservados.
+  </div>
+</footer>
+
+<script>
+// Hamburger menu
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('navLinks').classList.toggle('active');
+});
+
+// Close menu on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('active');
+  });
+});
+
+// Scroll reveal
+const revealElements = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, index * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+revealElements.forEach(el => observer.observe(el));
+
+// Smooth nav background
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
