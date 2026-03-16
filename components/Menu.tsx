@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Menu() {
   return (
     <section className="menu" id="menu">
@@ -12,14 +14,20 @@ export default function Menu() {
       <div className="menu-grid">
         <div className="menu-card reveal">
           <div className="menu-card-image">
-            🍗
+            <Image
+              src="/aji-de-gallina.png"
+              alt="Imagen Menu Item"
+              width={100}
+              height={100}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
             <span className="menu-tag">Popular</span>
           </div>
           <div className="menu-card-body">
-            <h3>Pollo al Horno con Arroz</h3>
+            <h3>Ají de Gallina</h3>
             <p>
-              Pollo marinado al horno dorado, acompañado de arroz con vegetales
-              y ensalada fresca del día.
+              Plato típico de la gastronomía peruana.
+              Crema espesa de ají con pechuga de gallina deshilachada.
             </p>
             <div className="menu-card-footer">
               <span className="menu-price">Consultar</span>
@@ -31,7 +39,13 @@ export default function Menu() {
         </div>
         <div className="menu-card reveal">
           <div className="menu-card-image">
-            🥩
+            <Image
+              src="/lomo-saltado-bandeja.png"
+              alt="Imagen Menu Item"
+              width={100}
+              height={100}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
             <span className="menu-tag">Premium</span>
           </div>
           <div className="menu-card-body">
@@ -50,14 +64,19 @@ export default function Menu() {
         </div>
         <div className="menu-card reveal">
           <div className="menu-card-image">
-            🥗
+            <Image
+              src="/ensalada-mediterranea.png"
+              alt="Imagen Menu Item"
+              width={100}
+              height={100}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
             <span className="menu-tag">Saludable</span>
           </div>
           <div className="menu-card-body">
-            <h3>Bowl Mediterráneo</h3>
+            <h3>Planes Personalizados</h3>
             <p>
-              Base de quinoa con vegetales asados, garbanzos, hummus casero,
-              aceitunas y aderezo de limón.
+              Ofrecemos 3 patrones de alimentación saludable a tu elección: Mediterránea, DASH o Paleo.
             </p>
             <div className="menu-card-footer">
               <span className="menu-price">Consultar</span>

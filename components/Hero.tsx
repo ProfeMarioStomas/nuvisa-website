@@ -29,11 +29,17 @@ export default function Hero() {
         <div className="hero-visual">
           <div className="hero-image-frame">
             <div>
-              <Image src="/hero-image.png" alt="Imagen Hero" width={536} height={400} />
+              <Image
+                src="/hero-image-20260316.jpg"
+                alt="Imagen Hero"
+                width={536}
+                height={400}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
             </div>
             <div className="hero-stat stat-1">
               <div>
-                <div className="stat-number">500+</div>
+                <div className="stat-number">100+</div>
                 <div className="stat-label">Almuerzos al día</div>
               </div>
             </div>

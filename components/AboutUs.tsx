@@ -6,7 +6,13 @@ export default function AboutUs() {
       <div className="nosotros-content">
         <div className="nosotros-visual reveal">
           <div>
-            <Image src="/about-us.png" alt="Imagen Nosotros" width={530} height={530} />
+            <Image
+              src="/about-us.png"
+              alt="Imagen Nosotros"
+              width={530}
+              height={530}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
           </div>
         </div>
         <div className="nosotros-text reveal">

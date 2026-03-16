@@ -1,4 +1,85 @@
+'use client'
+
+import { useState } from 'react'
+
+interface ContactFormData {
+  name: string
+  phone: string
+  email: string
+  serviceType: string
+  message: string
+}
+
+type FieldErrors = Partial<Record<keyof ContactFormData, string>>
+
+const INITIAL_FORM: ContactFormData = {
+  name: '',
+  phone: '',
+  email: '',
+  serviceType: '',
+  message: '',
+}
+
 export default function Contact() {
+  const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM)
+  const [loading, setLoading] = useState(false)
+  const [submittedName, setSubmittedName] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [generalError, setGeneralError] = useState<string | null>(null)
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    if (fieldErrors[name as keyof ContactFormData]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: undefined }))
+    }
+  }
+
+  const handleSubmit = async (e: React.SubmitEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setFieldErrors({})
+    setGeneralError(null)
+
+    try {
+      const response = await fetch(
+        'https://nuvisa-backend.hola-1c9.workers.dev/page-contacts',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        }
+      )
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null)
+
+        if (body?.details && Array.isArray(body.details)) {
+          const errors: FieldErrors = {}
+          for (const detail of body.details) {
+            if (detail.field && detail.message) {
+              errors[detail.field as keyof ContactFormData] = detail.message
+            }
+          }
+          setFieldErrors(errors)
+        } else {
+          setGeneralError('No pudimos enviar tu mensaje. Por favor intenta nuevamente.')
+        }
+        return
+      }
+
+      const body = await response.json().catch(() => null)
+      setSubmittedName(body?.name ?? formData.name)
+      setFormData(INITIAL_FORM)
+    } catch {
+      setGeneralError('No pudimos enviar tu mensaje. Por favor intenta nuevamente.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <section className="contacto" id="contacto">
       <div className="section-header reveal">
@@ -44,38 +125,111 @@ export default function Contact() {
             </div>
           </div>
         </div>
-        <div className="contacto-form reveal">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Nombre</label>
-              <input type="text" placeholder="Tu nombre" />
+
+        {submittedName !== null ? (
+          <div className="contacto-form contacto-success">
+            <h3>¡Mensaje enviado!</h3>
+            <p>
+              Gracias, <strong>{submittedName}</strong>. Recibimos tu solicitud
+              y te responderemos a la brevedad.
+            </p>
+            <button className="form-submit" onClick={() => setSubmittedName(null)}>
+              Enviar otro mensaje
+            </button>
+          </div>
+        ) : (
+          <form className="contacto-form" onSubmit={handleSubmit} noValidate>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="name">Nombre</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={fieldErrors.name ? 'field--error' : ''}
+                />
+                {fieldErrors.name && (
+                  <span className="form-field-error">{fieldErrors.name}</span>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Teléfono</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+56 9 ..."
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={fieldErrors.phone ? 'field--error' : ''}
+                />
+                {fieldErrors.phone && (
+                  <span className="form-field-error">{fieldErrors.phone}</span>
+                )}
+              </div>
             </div>
             <div className="form-group">
-              <label>Teléfono</label>
-              <input type="tel" placeholder="+56 9 ..." />
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="tu@email.com"
+                value={formData.email}
+                onChange={handleChange}
+                className={fieldErrors.email ? 'field--error' : ''}
+              />
+              {fieldErrors.email && (
+                <span className="form-field-error">{fieldErrors.email}</span>
+              )}
             </div>
-          </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="tu@email.com" />
-          </div>
-          <div className="form-group">
-            <label>Tipo de servicio</label>
-            <select>
-              <option value="">Selecciona una opción</option>
-              <option>Almuerzos corporativos</option>
-              <option>Catering para eventos</option>
-              <option>Delivery personal</option>
-              <option>Otro</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label>Mensaje</label>
-            <textarea placeholder="Cuéntanos qué necesitas: cantidad de personas, frecuencia, preferencias alimentarias..."></textarea>
-          </div>
-          <button className="form-submit">Enviar solicitud →</button>
-        </div>
+            <div className="form-group">
+              <label htmlFor="serviceType">Tipo de servicio</label>
+              <select
+                id="serviceType"
+                name="serviceType"
+                value={formData.serviceType}
+                onChange={handleChange}
+                className={fieldErrors.serviceType ? 'field--error' : ''}
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="Almuerzos corporativos">Almuerzos corporativos</option>
+                <option value="Catering para eventos">Catering para eventos</option>
+                <option value="Delivery personal">Delivery personal</option>
+                <option value="Otro">Otro</option>
+              </select>
+              {fieldErrors.serviceType && (
+                <span className="form-field-error">{fieldErrors.serviceType}</span>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="message">Mensaje</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Cuéntanos qué necesitas: cantidad de personas, frecuencia, preferencias alimentarias..."
+                value={formData.message}
+                onChange={handleChange}
+                className={fieldErrors.message ? 'field--error' : ''}
+              />
+              {fieldErrors.message && (
+                <span className="form-field-error">{fieldErrors.message}</span>
+              )}
+            </div>
+
+            {generalError && (
+              <p className="form-error">{generalError}</p>
+            )}
+
+            <button className="form-submit" type="submit" disabled={loading}>
+              {loading ? 'Enviando...' : 'Enviar solicitud →'}
+            </button>
+          </form>
+        )}
       </div>
     </section>
-  );
+  )
 }

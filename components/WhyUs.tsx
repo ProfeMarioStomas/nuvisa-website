@@ -7,12 +7,12 @@ export default function WhyUs() {
       </div>
       <div className="porque-grid">
         <div className="porque-item reveal">
-          <div className="porque-number">500+</div>
+          <div className="porque-number">100+</div>
           <h4>Almuerzos diarios</h4>
           <p>Producidos cada día</p>
         </div>
         <div className="porque-item reveal">
-          <div className="porque-number">50+</div>
+          <div className="porque-number">4+</div>
           <h4>Empresas</h4>
           <p>Confían en nosotros</p>
         </div>

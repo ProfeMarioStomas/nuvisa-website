@@ -805,6 +805,26 @@ section { padding: 6rem 2rem; }
 }
 
 .form-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+.form-group input.field--error,
+.form-group select.field--error,
+.form-group textarea.field--error {
+  border-color: #dc2626;
+}
+
+.form-field-error {
+  display: block;
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+.form-error {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
 
 /* ── FOOTER ── */
 footer {
