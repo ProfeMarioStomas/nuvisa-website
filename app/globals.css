@@ -270,7 +270,10 @@ nav {
 .hero-stat {
   position: absolute;
   background: var(--white);
-  padding: 0.8rem 1.2rem;
+  padding-top: 0.1rem;
+  padding-bottom: 1rem;
+  padding-left: .5rem;
+  padding-right: 1.2rem;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   display: flex;
@@ -280,10 +283,9 @@ nav {
 }
 
 .hero-stat.stat-1 { bottom: -16px; left: 20px; }
-.hero-stat.stat-2 { top: 16px; right: -16px; }
+.hero-stat.stat-2 { top: 16px; right: -16px; padding-bottom: 0.1rem }
 
 .hero-stat .stat-number {
-  font-size: 1.4rem;
   font-weight: 700;
   color: var(--green);
 }
